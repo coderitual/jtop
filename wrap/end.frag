@@ -1,0 +1,2 @@
+window.jtop = require('jtop');
+}());

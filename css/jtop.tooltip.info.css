@@ -1,0 +1,29 @@
+
+.jt-tooltip-info { 
+	margin: 10px; 
+	font-family: Tahoma, Arial; 
+	box-shadow: 0px 0px 4px #000;
+	font-size: 9px;
+    position: absolute;
+    top: 0; 
+    left: 0;
+    background-color: #FFF;
+    border-radius: 2px;
+    background: #999; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dddddd'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ddd)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #fff,  #ddd); /* for firefox 3.6+ */
+}
+
+.jt-tooltip-info .title {
+	text-shadow: 1px 1px 2px #FFF;
+	font-weight: bold;
+	padding: 4px;
+	margin-right: 10px;
+	color: #333;
+}
+
+.jt-tooltip-info .title .name{ 
+	text-shadow: 1px 1px 2px #FFF;
+	color: #196391;
+}

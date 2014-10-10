@@ -1,0 +1,169 @@
+/*
+ *  jtop context menu style sheet
+ */
+
+.jtop-popupmenu {
+    background: #F9F9F9;
+    box-shadow: 0px 0px 5px #000;
+
+    display: none;
+    position: absolute;
+    top: 0; 
+    left: 0;
+    list-style: none;
+    margin: 0;
+    padding: 5px 0 5px 0;
+    min-width: 150px;
+    font-family: "Lucida Grande", Tahoma, Helvetica, Arial, Verdana;
+    font-size: 11px;
+}
+ 
+.jtop-popupmenu li {
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 5px;
+    cursor: pointer;
+}
+ 
+.jtop-popupmenu li:hover {
+    background: #196391;
+    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0d78b0', endColorstr='#196391'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#0d78b0), to(#196391)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #0d78b0,  #196391); /* for firefox 3.6+ */ 
+}
+
+.jtop-popupmenu li .img {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin: 2px 3px;
+}
+
+.jtop-popupmenu hr { 
+    border: 0;
+    height: 0;
+    border-top: 1px solid #bebebe;
+    border-bottom: none; 
+}
+
+/*
+.jtop-popupmenu li:hover .img {
+    background-position: bottom;
+}
+ */
+
+.jtop-popupmenu a {
+    color: #000;
+    display: inline;
+    padding: 5px;
+    text-decoration: none;
+    width: 85%;
+}
+ 
+.jtop-popupmenu li:hover a {
+    color: #f9f9f9;
+}
+
+.jtop-popupmenu li:last-child a {
+    border-bottom: none;
+}
+
+/* 
+ * Context menu arrow 
+ */
+
+ .jtop-popupmenu-arrow {
+    border-color: #f9f9f9 transparent transparent transparent;
+    border-style: solid;
+    border-width: 7px;
+    height:0;
+    width:0;
+    position:absolute;
+    bottom:-14px;
+    left:42%;
+
+    /* ie6 ? ;) */
+
+    _border-left-color: pink;
+    _border-bottom-color: pink;
+    _border-right-color: pink;
+    _filter: chroma(color=pink);
+ }
+
+ .jtop-popupmenu-arrow-border { 
+    border-style: solid;
+    border-width: 7px;
+    height:0;
+    width:0;
+    position:absolute;
+    left:42%;
+ }
+
+ /* Arrow up */
+
+.jtop-arrowup {
+    border-color: #FFF transparent transparent transparent;
+    bottom:-14px;
+    top: auto;;
+}
+
+.jtop-arrowdown {
+    border-color: transparent transparent #FFF transparent;
+    top:-14px;
+    bottom: auto;
+}
+
+ /* Arrow down */
+
+.jtop-arrowup-border {
+    border-color: #323232 transparent transparent transparent;
+    bottom:-15px;
+    top: auto;;
+}
+
+.jtop-arrowdown-border {
+    border-color: transparent transparent #323232 transparent;
+    top:-15px;
+    bottom: auto;
+}
+
+/*
+    pridesk menu
+    ***********************************************
+ */
+
+.jtop-popupmenu li .img {
+    background-image: url('../test/images/glyphicons-halflings.png');
+    background-repeat: none;
+}
+
+.jtop-popupmenu li:hover .img {
+    background-image: url('../test/images/glyphicons-halflings-white.png');
+    background-repeat: none;
+}
+
+.jtop-popupmenu li.edit-item .img {
+    background-position:-96px -72px;
+}
+
+.jtop-popupmenu li.remove .img {
+    background-position:-312px 0;
+}
+
+.jtop-popupmenu li.open-link .img {
+    background-position:-120px -72px;
+}
+
+.jtop-popupmenu li.preview-project .img {
+    background-position:-96px -119px;
+}
+
+.jtop-popupmenu li.edit-project .img {
+    background-position:0 -72px;
+}
+
+
+
+

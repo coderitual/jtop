@@ -1,8 +1,16 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Jtop 1.0.1</title>
+	<title>jtop-demo</title>
+
+    <script src="test/lib/d3.min.js"></script>
+    <script src="test/lib/trianglify.min.js"></script>
+    <script src="test/lib/dat.gui.min.js"></script>
+    <script src="test/lib/humane.min.js"></script>
+
 	<script data-main='test/main' src="lib/require.js"></script>
+    <link rel="stylesheet" href="test/css/original.css"/>
+
 	<link rel="stylesheet" href="css/jtop.popupmenu.css">
 	<link rel="stylesheet" href="css/jtop.tooltip.icon.css">
 	<link rel="stylesheet" href="css/jtop.tooltip.info.css">
@@ -16,24 +24,23 @@
 			}
 			
 			#jtop {
-				width: 1600px;
-				height: 900px;
-				position: fixed;
-				top: 25px;
+				width: 100%;
+				height: 100%;
+
 				margin-left: auto;    
 				overflow: hidden;
-				background-image: url("test/images/siatka10.png");       
+				background-image: url("test/images/siatka10.png");
 			}
 
 			
 			body {
 				background-color: #89A;
-				/*background-image: url("test/images/wallpaper-3.jpg");*/
 			}
 			
 	</style>
 </head>
 <body>
-	<div id="jtop"></div>
+    <a href="https://github.com/coderitual/jtop"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+    <div id="jtop"></div>
 </body>
 </html>

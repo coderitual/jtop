@@ -184,7 +184,7 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
             desktop: {
                 iconTitle: 'Icon element',
                 iconSize: 48,
-                iconOffsetTop: 12,
+                iconOffsetTop: 15,
                 iconFontSize: 11,
                 iconFontOffsetTop: 2,
                 gridSize: 100

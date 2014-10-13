@@ -18,8 +18,9 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
         // background
         // -------------------------------------------------------------------------------------------------------------
 
+        var t = new Trianglify();
+
         function geneerateBackground() {
-            var t = new Trianglify();
             var pattern = t.generate(document.body.clientWidth, document.body.clientHeight);
             document.body.setAttribute('style', 'background-image: ' + pattern.dataUrl);
         }
@@ -38,7 +39,23 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
 		var cMenuProject = jtop.popupmenu()
 		.addMenuElement('open project', null, function(sender) {}, 'edit-item')
 		.addMenuSeparator()
-		.addMenuElement('preview project', null, function(sender) {}, 'preview-project')
+		.addMenuElement('panel resize info...', null, function(sender) {
+
+            humane.log('<b>hint:</b> Drag bottom-right of panel until the desired size is achieved.', {
+                timeout: 3000,
+                clickToClose: true
+            });
+
+        }, 'open-link')
+
+        .addMenuElement('inline edit info...', null, function(sender) {
+
+            humane.log('<b>hint:</b> Click the panel title to change it.', {
+                timeout: 3000,
+                clickToClose: true
+            });
+
+        }, 'edit-project')
 		.addMenuElement('remove', null, function(sender) {
 			if(sender.parent.type === 'PANEL' && _.keys(sender.parent.items).length == 1) {
 				sender.parent.remove();
@@ -48,17 +65,21 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
 
 		var iconTooltip = desktop.tooltip({
 			offsetLeft: 30,
-			offsetTop: -120
+			offsetTop: -120,
+            fadeInSpeed: 0,
+            fadeOutSpeed: 200
 		})
 		.addTemplate('<%if(image) {%><img class="image" src="<%=image%>"/><%}%>' +
 					 '<div class="title"><%=title%></div>' +
 					 '<div class="description"><%=description%></div>' + 
-					 '<div class="field"><%=field%></div>')
-		.addTemplate(' ');
+					 '<div class="field"><%=field%></div>');
 
 		iconTooltip.on.show.add(function(sender, values) {
+
+            if(!settings.desktop.tooltip) return;
+
 			values.title = sender.settings.title;
-			values.image = 'http://ns3002439.ovh.net/thumbs/rozne/thumb-2274542.jpg';
+			values.image = 'https://avatars3.githubusercontent.com/u/8572321?v=2&s=460',
 			values.description = sender.settings.title; 
 			values.field = 'jtop-project';
 		});
@@ -70,7 +91,7 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
             offsetTop: 0,
             toOpacity: 1
         })
-            .addTemplate('<div class="image"></div><div class="title"><span class="name"><%=name%></span> <%=title%></div>');
+        .addTemplate('<div class="image"></div><div class="title"><span class="name"><%=name%></span> <%=title%></div>');
 
         panelTooltip.on.show.add(function(sender, values) {
             values.name = '<span class="name">+ Create panel</span>';
@@ -94,7 +115,9 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
                 minWidh: settings.desktop.gridSize,
                 minHeight: settings.desktop.gridSize,
                 gridW: settings.desktop.gridSize,
-                gridH: settings.desktop.gridSize
+                gridH: settings.desktop.gridSize,
+                inlineEdit: settings.desktop.panelTitleEdit
+
             }).pos(itemBelow.transform.x, itemBelow.transform.y + 25);
 
             desktop.grid.removeValue(itemBelow.settings.gridX, itemBelow.settings.gridY, itemBelow);
@@ -102,8 +125,6 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
 
             newPanel.addItem(item, 1, 0, true);
             newPanel.addItem(itemBelow, 0, 0, true);
-
-            panels.push(newPanel);
 
             return true;
         });
@@ -120,29 +141,20 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
 
         desktop.on.dragEnd.add(function(item, x, y) {
             if(item.parent !== panelToRemove) {
-                panelToRemove && panelToRemove.remove();
+                if(panelToRemove) {
+                    desktop.removeItem(panelToRemove);
+                }
             }
         });
 
         // icons and panels
         // -------------------------------------------------------------------------------------------------------------
 
-        var icons = [];
-        var panels = [];
-
         function destroyElements() {
 
-            for(var i = 0, l = panels.length; i < l; i++) {
-                desktop.removeItem(panels[i]);
+            for(key in desktop.items) {
+                desktop.items[key].remove();
             }
-
-            panels.length = 0;
-
-            for(var i = 0, l = icons.length; i < l; i++) {
-                desktop.removeItem(icons[i]);
-            }
-
-            icons.length = 0;
         }
 
         function createElements() {
@@ -151,7 +163,7 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
 
             for(var i = 0; i < folderIcons; i++) {
 
-                icons[i] = desktop.icon({
+                desktop.icon({
                     title: settings.desktop.iconTitle,
                     image: 'test/images/717.png',
                     gridX: 2,
@@ -168,6 +180,20 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
 
             }
 
+            desktop.icon({
+                title: settings.desktop.iconTitle,
+                image: 'test/images/700.png',
+                gridX: 2,
+                gridY: folderIcons + 1,
+                offsetTop: settings.desktop.iconOffsetTop,
+                maxWidth: settings.desktop.gridSize,
+                maxHeight: settings.desktop.gridSize,
+                width: settings.desktop.iconSize,
+                height: settings.desktop.iconSize,
+                fontSize: settings.desktop.iconFontSize,
+                textOffsetTop: settings.desktop.iconFontOffsetTop
+
+            }).menu(cMenuProject).tooltip(iconTooltip);
         }
 
         // demo settings
@@ -183,13 +209,18 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
 
             desktop: {
                 iconTitle: 'Icon element',
-                iconSize: 48,
-                iconOffsetTop: 15,
-                iconFontSize: 11,
+                iconSize: 42,
+                iconOffsetTop: 19,
+                iconFontSize: 13,
                 iconFontOffsetTop: 2,
-                gridSize: 100
+                gridSize: 100,
+                tooltip: false,
+                panelTitleEdit: true
             }
         };
+
+        desktop._settings.gridH = settings.desktop.gridSize;
+        desktop._settings.gridW = settings.desktop.gridSize;
 
         function onItemsChange(value) {
 
@@ -210,7 +241,9 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
         gui.desktop.add(settings.desktop, 'iconFontSize', 9, 18).onFinishChange(onItemsChange);
         gui.desktop.add(settings.desktop, 'iconOffsetTop', 12, 50).onFinishChange(onItemsChange);
         gui.desktop.add(settings.desktop, 'iconFontOffsetTop', 0, 20).onFinishChange(onItemsChange);
-        gui.desktop.add(settings.desktop, 'gridSize', 100, 300).step(50).onFinishChange(onItemsChange);
+        gui.desktop.add(settings.desktop, 'gridSize', 100, 300).step(25).onFinishChange(onItemsChange);
+        gui.desktop.add(settings.desktop, 'panelTitleEdit').onFinishChange(onItemsChange);
+        gui.desktop.add(settings.desktop, 'tooltip');
         gui.desktop.open();
 
 

@@ -1,0 +1,40 @@
+@font-face {
+    font-family: 'Oxygen Mono';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Oxygen Mono'), local('OxygenMono-Regular'), url(http://themes.googleusercontent.com/static/fonts/oxygenmono/v1/BzV4DVOwAgGelLT9EC5xytIh4imgI8P11RFo6YPCPC0.woff) format('woff');
+}
+
+/*
+    dat.gui changes
+*/
+
+.dg {
+    font-family: 'Oxygen Mono'!important;
+    text-transform: uppercase;
+}
+.dg.ac {
+    z-index: 1!important;
+}
+.dg.ac .dg li:not(.folder) {
+    background: rgba(0, 0, 0, .85)!important;
+}
+.dg.ac .dg .c .slider-fg, .dg.ac .dg .c .slider:hover .slider-fg {
+    background: #fff!important;
+}
+.dg.ac .c .slider {
+    background: rgba(255, 255, 255, .2)!important;
+}
+.dg.ac .dg .c input[type=text] {
+    background-color: #464542;
+}
+.dg.ac .hue-field {
+    width: 14px!important;
+}
+.dg.ac li.string input[type=text] {
+    background: #000!important;
+    color: #fff!important;
+}
+.dg.ac .cr.string {
+    border-left-color: #fff!important;
+}

@@ -115,7 +115,12 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
                 minHeight: settings.desktop.gridSize,
                 gridW: settings.desktop.gridSize,
                 gridH: settings.desktop.gridSize,
-                inlineEdit: settings.desktop.panelTitleEdit
+                inlineEdit: settings.desktop.panelTitleEdit,
+                fontSize: settings.desktop.panelFontSize,
+                topPanelHeight: settings.desktop.panelTopPanelHeight,
+                bottomPanelHeight: settings.desktop.panelBottomPanelHeight,
+                textOffsetTop: settings.desktop.panelTextOffsetTop,
+                textMargin: settings.desktop.panelTextMargin
 
             }).pos(itemBelow.transform.x, itemBelow.transform.y + 25);
 
@@ -207,11 +212,16 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
             },
 
             desktop: {
-                iconTitle: 'Icon element',
+                iconTitle: 'Desktop item',
                 iconSize: 42,
                 iconOffsetTop: 19,
                 iconFontSize: 13,
                 iconFontOffsetTop: 2,
+                panelFontSize: 15,
+                panelTopPanelHeight: 25,
+                panelBottomPanelHeight: 6,
+                panelTextOffsetTop: 18,
+                panelTextMargin: 25,
                 gridSize: 100,
                 tooltip: false,
                 panelTitleEdit: true
@@ -231,19 +241,26 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
         }
 
         var gui = new dat.GUI({ width: 300 });
-        gui.background = gui.addFolder('Background');
-        gui.background.add(settings.background, 'generate');
 
-        gui.desktop = gui.addFolder('Desktop');
-        gui.desktop.add(settings.desktop, 'iconTitle').onFinishChange(onItemsChange);
-        gui.desktop.add(settings.desktop, 'iconSize', 38, 96).onFinishChange(onItemsChange);
-        gui.desktop.add(settings.desktop, 'iconFontSize', 9, 18).onFinishChange(onItemsChange);
-        gui.desktop.add(settings.desktop, 'iconOffsetTop', 12, 50).onFinishChange(onItemsChange);
-        gui.desktop.add(settings.desktop, 'iconFontOffsetTop', 0, 20).onFinishChange(onItemsChange);
-        gui.desktop.add(settings.desktop, 'gridSize', 100, 300).step(25).onFinishChange(onItemsChange);
-        gui.desktop.add(settings.desktop, 'panelTitleEdit').onFinishChange(onItemsChange);
-        gui.desktop.add(settings.desktop, 'tooltip');
-        gui.desktop.open();
+        gui.icon = gui.addFolder('ICON');
+        gui.icon.add(settings.desktop, 'iconTitle').name('TITLE').onFinishChange(onItemsChange);
+        gui.icon.add(settings.desktop, 'iconSize', 38, 96).name('SIZE').onFinishChange(onItemsChange);
+        gui.icon.add(settings.desktop, 'iconFontSize', 9, 18).name('FONT SIZE').onFinishChange(onItemsChange);
+        gui.icon.add(settings.desktop, 'iconOffsetTop', 12, 50).name('OFFSET TOP ').onFinishChange(onItemsChange);
+        gui.icon.add(settings.desktop, 'iconFontOffsetTop', 0, 20).name('FONT OFFSET TOP').onFinishChange(onItemsChange);
+
+        gui.panel = gui.addFolder('PANEL');
+        gui.panel.add(settings.desktop, 'panelFontSize', 9, 24).name('FONT SIZE').onFinishChange(onItemsChange);
+        gui.panel.add(settings.desktop, 'panelTopPanelHeight', 15, 40).name('TOP HEIGHT').onFinishChange(onItemsChange);
+        gui.panel.add(settings.desktop, 'panelBottomPanelHeight', 0, 12).name('BOTTOM HEIGHT').onFinishChange(onItemsChange);
+        gui.panel.add(settings.desktop, 'panelTextOffsetTop', 12, 24).name('FONT OFFSET TOP').onFinishChange(onItemsChange);
+        gui.panel.add(settings.desktop, 'panelTextMargin', 0, 50).name('TEXT MARGIN').onFinishChange(onItemsChange);
+        gui.panel.add(settings.desktop, 'panelTitleEdit').name('INLINE EDIT').onFinishChange(onItemsChange);
+
+        gui.desktop = gui.addFolder('DESKTOP');
+        gui.desktop.add(settings.desktop, 'gridSize', 100, 300).name('GRID SIZE').step(25).onFinishChange(onItemsChange);
+        gui.desktop.add(settings.desktop, 'tooltip').name('TOOLTIP');
+        gui.desktop.add(settings.background, 'generate').name('BACKGROUND');
 
 
         // boot

@@ -32,20 +32,20 @@ define(function(require, exports, module) {
 	function dragOverElement() {
 		var item = this._drag.item;
 		if(_.isNull(item)) return;
-		
+
 		item.node.style.display = 'none';
 		var below = document.elementFromPoint(this._drag.cx, this._drag.cy),
 			dropElement = getParentWithClass(below, 'droppable'),
 			dropItem = this.getDropableItem(dropElement ? dropElement.id : '');
-		
+
 		if(!_.isUndefined(dropItem)) {
 			if(this._drag.dropItem != dropItem) {
-				this._drag.dropItem && this._drag.dropItem.dragOut(item, this._drag.x, this._drag.y);	
+				this._drag.dropItem && this._drag.dropItem.dragOut(item, this._drag.x, this._drag.y);
 			}
 			this._drag.dropItem = dropItem;
 			dropItem.dragOver(item, this._drag.x, this._drag.y);
 		}
-		
+
 		item.node.style.display = '';
 		this._drag.dragCheckTimer = null;
 	};
@@ -65,7 +65,7 @@ define(function(require, exports, module) {
 				this._drag.itemStartDrag.parent.dropIn(item, this._drag.itemStartDrag.x, this._drag.itemStartDrag.y, true);
 			}
 		}
-		
+
 		item.node.style.display = '';
 	};
 
@@ -74,7 +74,7 @@ define(function(require, exports, module) {
 		if(!this.item.drag.enabled || !_.isNull(this.manager._drag.item)) return;
 
 		var loc = windowToElement(this.manager.parent, e.clientX, e.clientY);
-		
+
 		this.manager._drag.item = this.item;
     	this.manager._drag.x = loc.x;
     	this.manager._drag.y = loc.y;
@@ -105,7 +105,7 @@ define(function(require, exports, module) {
     			item.parent.dropOut(item, loc.x, loc.y);  // inform droppable parent about dragging action of its child
     		}
 
-    		this._drag.cursor = this.node.style.cursor; 
+    		this._drag.cursor = this.node.style.cursor;
     		this.node.style.cursor = 'move';
     		this.dragStart(item, loc.x, loc.y);
     		item.dragStart(loc.x, loc.y);
@@ -121,10 +121,10 @@ define(function(require, exports, module) {
         if(item.drag.boundingBox) {
         	var crect = item.getBoundingBox();
 
-        	if (crect.x + xd < 0) newposx = 0; 
+        	if (crect.x + xd < 0) newposx = 0;
         	else if (crect.x + xd + crect.w > this.parent.offsetWidth) newposx = this.parent.offsetWidth - crect.w;
 
-			if (crect.y + yd < 0) newposy -= (crect.y + yd); 
+			if (crect.y + yd < 0) newposy -= (crect.y + yd);
         	else if (crect.y + yd + crect.h > this.parent.offsetHeight) newposy += this.parent.offsetHeight - (crect.y + yd + crect.h);
         }
 
@@ -133,10 +133,10 @@ define(function(require, exports, module) {
         this._drag.x = loc.x;
         this._drag.y = loc.y;
         this._drag.cx = cx;
-        this._drag.cy = cy;   
+        this._drag.cy = cy;
 
         if(item.drag.checkDragOver && _.isNull(this._drag.dragCheckTimer)) {
-        	this._drag.dragCheckTimer = setTimeout(_.bind(dragOverElement, this), settings.checkDragOverDelay);	
+        	this._drag.dragCheckTimer = setTimeout(_.bind(dragOverElement, this), settings.checkDragOverDelay);
         }
 
         this.drag(item, loc.x, loc.y);
@@ -158,7 +158,7 @@ define(function(require, exports, module) {
 
 	        item.pos(newposx, newposy);
 	        item.drag.dragging = false;
-			
+
 			// restore previous cursor
 			this.node.style.cursor = this._drag.cursor;
 
@@ -225,7 +225,7 @@ define(function(require, exports, module) {
 			this.on.addItem.add(_.bind(itemAdded, this));
 
 			_.defaults(this, {
-				_drag: { 
+				_drag: {
 					item: null,
 					x: null,
 					y: null,

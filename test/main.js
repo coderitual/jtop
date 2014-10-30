@@ -58,7 +58,7 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
 		.addMenuElement('remove', null, function(sender) {
 			if(sender.parent.type === 'PANEL' && _.keys(sender.parent.items).length == 1) {
 				sender.parent.remove();
-			}	
+			}
 			sender.remove();
 		}, 'remove');
 
@@ -71,6 +71,7 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
 		.addTemplate('<%if(image) {%><img class="image" src="<%=image%>"/><%}%>' +
 					 '<div class="title"><%=title%></div>' +
 					 '<div class="description"><%=description%></div>' + 
+					 '<div class="description"><%=description%></div>' +
 					 '<div class="field"><%=field%></div>');
 
 		iconTooltip.on.show.add(function(sender, values) {
@@ -79,7 +80,7 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
 
 			values.title = sender.settings.title;
 			values.image = 'https://avatars3.githubusercontent.com/u/8572321?v=2&s=460',
-			values.description = sender.settings.title; 
+			values.description = sender.settings.title;
 			values.field = 'jtop-project';
 		});
 

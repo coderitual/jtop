@@ -138,12 +138,12 @@ define(function(require, exports, module) {
 
 		addItem: function(item, gridX, gridY) {
 			if(item instanceof Item && _.isString(item.type) && !_.has(this.items, item.id)) {
-				
+
 				var o = this._settings;
 
 				item.id = item.id || _.uniqueId('jtop_' + item.type + '_');
 				this.items[item.id] = item;
-				
+
 				if(_.isElement(item.node)) {
 					addClass(item.node, 'ITEM');
 					addClass(item.node, item.type);
@@ -170,7 +170,7 @@ define(function(require, exports, module) {
 
 		removeItem: function(id) {
 			var item;
-			if(_.has(this.items, id)) 
+			if(_.has(this.items, id))
 				item = this.items[id];
 			else if(id instanceof Item)
 				item = id;
@@ -188,7 +188,7 @@ define(function(require, exports, module) {
 			if(item.type === 'ICON') {
 				if(item.parent.id !== this.id)
 					item.pos(item.transform.x + item.parent.transform.x, item.transform.y + item.parent.transform.y);
-				
+
 				item.parent.node.removeChild(item.node);
 				item.parent = this;
 				item.parent.node.appendChild(item.node);
@@ -263,7 +263,7 @@ define(function(require, exports, module) {
 		},
 
 		getDropableItem: function(id) {
-			if(this.id === id) 
+			if(this.id === id)
 				return this;
 			else
 				return this.getItemById(id);
@@ -320,11 +320,11 @@ define(function(require, exports, module) {
 	function hasClass(ele,cls) {
 		return ele.className.baseVal.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
 	};
- 
+
 	function addClass(ele,cls) {
 		if (!hasClass(ele,cls)) ele.className.baseVal += " "+cls;
 	};
- 
+
 	function removeClass(ele,cls) {
 		if (hasClass(ele,cls)) {
 	    	var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');

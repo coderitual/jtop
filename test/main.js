@@ -65,13 +65,12 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
 		var iconTooltip = desktop.tooltip({
 			offsetLeft: 30,
 			offsetTop: -120,
-            fadeInSpeed: 0,
-            fadeOutSpeed: 200
+            fadeInSpeed: 100,
+            fadeOutSpeed: 0
 		})
 		.addTemplate('<%if(image) {%><img class="image" src="<%=image%>"/><%}%>' +
 					 '<div class="title"><%=title%></div>' +
 					 '<div class="description"><%=description%></div>' + 
-					 '<div class="description"><%=description%></div>' +
 					 '<div class="field"><%=field%></div>');
 
 		iconTooltip.on.show.add(function(sender, values) {

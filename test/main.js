@@ -15,15 +15,6 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
 
 	domReady(function() {
 
-        // background
-        // -------------------------------------------------------------------------------------------------------------
-
-        function geneerateBackground() {
-            var t = new Trianglify();
-            var pattern = t.generate(document.body.clientWidth, document.body.clientHeight);
-            document.body.setAttribute('style', 'background-image: ' + pattern.dataUrl);
-        }
-
         // desktop
         // -------------------------------------------------------------------------------------------------------------
 
@@ -163,13 +154,67 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
 
         function createElements() {
 
-            var folderIcons = 3;
+            // panel items
+
+            var folderIcons = 12;
+            var panelNo = 0;
+            var newPanel;
 
             for(var i = 0; i < folderIcons; i++) {
 
-                desktop.icon({
+                if(i % 2 === 0) {
+
+                    panelNo = (i / 2) | 0;
+
+                    newPanel = desktop.panel({
+                        title: 'Panel title ' + (panelNo + 1),
+                        width: settings.desktop.gridSize * (2 + ((panelNo % 2) * 2)),
+                        height: settings.desktop.gridSize,
+                        minWidh: settings.desktop.gridSize,
+                        minHeight: settings.desktop.gridSize,
+                        gridW: settings.desktop.gridSize,
+                        gridH: settings.desktop.gridSize,
+                        inlineEdit: settings.desktop.panelTitleEdit,
+                        fontSize: settings.desktop.panelFontSize,
+                        topPanelHeight: settings.desktop.panelTopPanelHeight,
+                        bottomPanelHeight: settings.desktop.panelBottomPanelHeight,
+                        textOffsetTop: settings.desktop.panelTextOffsetTop,
+                        textMargin: settings.desktop.panelTextMargin
+
+                    }).pos(400 + (panelNo % 2) * (settings.desktop.gridSize * 2 + 20), (panelNo % 3) * (settings.desktop.gridSize + 50) + 100);
+
+                }
+
+                var icon = desktop.icon({
                     title: settings.desktop.iconTitle,
                     image: 'test/images/717.png',
+                    gridX: 2 + (i / 3) | 0,
+                    gridY: i % 3 + 1,
+                    offsetTop: settings.desktop.iconOffsetTop,
+                    maxWidth: settings.desktop.gridSize,
+                    maxHeight: settings.desktop.gridSize,
+                    width: settings.desktop.iconSize,
+                    height: settings.desktop.iconSize,
+                    fontSize: settings.desktop.iconFontSize,
+                    textOffsetTop: settings.desktop.iconFontOffsetTop
+
+                }).menu(cMenuProject).tooltip(iconTooltip);
+
+                newPanel.addItem(icon, i % 2, 0, true);
+
+            }
+
+            var customIcons = [
+                'test/images/927.png',
+                'test/images/1474.png',
+                'test/images/1465.png',
+                'test/images/1491.png'
+            ];
+
+            for(var i = 0, len = customIcons.length; i < len; i++) {
+                desktop.icon({
+                    title: settings.desktop.iconTitle,
+                    image: customIcons[i],
                     gridX: 2,
                     gridY: i + 1,
                     offsetTop: settings.desktop.iconOffsetTop,
@@ -181,34 +226,50 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
                     textOffsetTop: settings.desktop.iconFontOffsetTop
 
                 }).menu(cMenuProject).tooltip(iconTooltip);
-
             }
 
-            desktop.icon({
-                title: settings.desktop.iconTitle,
-                image: 'test/images/700.png',
-                gridX: 2,
-                gridY: folderIcons + 1,
-                offsetTop: settings.desktop.iconOffsetTop,
-                maxWidth: settings.desktop.gridSize,
-                maxHeight: settings.desktop.gridSize,
-                width: settings.desktop.iconSize,
-                height: settings.desktop.iconSize,
-                fontSize: settings.desktop.iconFontSize,
-                textOffsetTop: settings.desktop.iconFontOffsetTop
-
-            }).menu(cMenuProject).tooltip(iconTooltip);
         }
 
         // demo settings
         // -------------------------------------------------------------------------------------------------------------
+
+        // background
+        // -------------------------------------------------------------------------------------------------------------
+
+        function geneerateBackground() {
+            var t = new Trianglify();
+            var pattern = t.generate(document.body.clientWidth, document.body.clientHeight);
+            document.body.setAttribute('style', 'background-image: ' + pattern.dataUrl);
+        }
+
+        function setWallpaper() {
+            document.body.setAttribute('style', 'background-image: url(' + settings.background.wallpaper + ')');
+        }
+
+        function toggleGrid() {
+            document.getElementById('jtop').style.backgroundImage = settings.background.grid ? 'url("test/images/siatka10.png")' : 'none';
+        }
+
+        var wallpapers = {
+            'rocket': 'test/images/w1.png',
+            'hair': 'test/images/w1.jpg',
+            'abstract': 'test/images/w2.jpg',
+            'abstract2': 'test/images/wallpaper-3.jpg',
+            'city': 'test/images/w3.jpg',
+            'boat': 'test/images/w9.jpg',
+            'box': 'test/images/wallpaper-2.jpg',
+            'tree': 'test/images/wallpaper.jpg'
+        };
 
         var settings = {
 
             background: {
                 generate: function() {
                     geneerateBackground();
-                }
+                },
+
+                wallpaper: 'test/images/w3.jpg',
+                grid: true
             },
 
             desktop: {
@@ -260,12 +321,15 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
         gui.desktop = gui.addFolder('DESKTOP');
         gui.desktop.add(settings.desktop, 'gridSize', 100, 300).name('GRID SIZE').step(25).onFinishChange(onItemsChange);
         gui.desktop.add(settings.desktop, 'tooltip').name('TOOLTIP');
-        gui.desktop.add(settings.background, 'generate').name('BACKGROUND');
+        gui.desktop.add(settings.background, 'grid').name('GRID').onFinishChange(toggleGrid);
+        gui.desktop.add(settings.background, 'wallpaper').options(wallpapers).name('WALLPAPER').onFinishChange(setWallpaper);
+        gui.desktop.add(settings.background, 'generate').name('GENERATE');
+
 
 
         // boot
         // -------------------------------------------------------------------------------------------------------------
-        geneerateBackground();
+        setWallpaper();
         createElements();
 
         humane.log('<b>hint:</b> Drop the icon on another one to create panel.', {

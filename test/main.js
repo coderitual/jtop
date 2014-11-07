@@ -268,7 +268,7 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
                     geneerateBackground();
                 },
 
-                wallpaper: 'test/images/w3.jpg',
+                wallpaper: 'test/images/w1.jpg',
                 grid: true
             },
 

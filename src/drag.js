@@ -4,7 +4,7 @@ define(function(require, exports, module) {
 		Signal = require('./lib/signals');
 
 	var settings = {
-		checkDragOverDelay: 16
+		checkDragOverDelay: 5
 	};
 
 	function hasClass(element, cls) {

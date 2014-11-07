@@ -70,7 +70,7 @@ require(['domReady', 'jtop'], function(domReady, jtop) {
 		})
 		.addTemplate('<%if(image) {%><img class="image" src="<%=image%>"/><%}%>' +
 					 '<div class="title"><%=title%></div>' +
-					 '<div class="description"><%=description%></div>' + 
+					 '<div class="description"><%=description%></div>' +
 					 '<div class="field"><%=field%></div>');
 
 		iconTooltip.on.show.add(function(sender, values) {

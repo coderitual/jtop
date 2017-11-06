@@ -63,7 +63,7 @@ const icon = desktop.icon({
 ```
 
 ### Panel customization
-![Panel customization](docs/demo.gif)
+![Panel customization](docs/panel.gif)
 ```javascript
 const panel = desktop.panel({
   title: "Panel title",

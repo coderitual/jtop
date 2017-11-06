@@ -1,6 +1,10 @@
 jtop
 ==============
 
-Jtop.js is a javascript library that uses SVG to let you build beautiful desktop-like user interfaces.
+> Jtop.js is a javascript library that uses SVG to let you build beautiful desktop-like user interfaces.
 
-[Live demo](http://coderitual.github.io/jtop/ "jtop")
+![a relative link](docs/demo.gif)
+
+## Demo
+
+[Showcase](http://coderitual.github.io/jtop/ "jtop")

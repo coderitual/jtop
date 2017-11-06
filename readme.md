@@ -3,7 +3,7 @@ jtop
 
 > Jtop.js is a javascript library that uses SVG to let you build beautiful desktop-like user interfaces.
 
-![a relative link](docs/demo.gif)
+![Demo](docs/demo.gif)
 
 ## Demo
 
@@ -45,6 +45,7 @@ const icon = desktop
 ```
 
 ### Icon customization
+![Icon customization](docs/icon.gif)
 ```javascript
 const icon = desktop.icon({
   title: "Title",
@@ -62,6 +63,7 @@ const icon = desktop.icon({
 ```
 
 ### Panel customization
+![Panel customization](docs/demo.gif)
 ```javascript
 const panel = desktop.panel({
   title: "Panel title",
@@ -81,6 +83,7 @@ const panel = desktop.panel({
 ```
 
 ### Drag and drop tooltip and panel creation
+![Drag and drop tooltip and panel creation](docs/drop.gif)
 ```javascript
 const desktop = jtop.init("jtop");
 

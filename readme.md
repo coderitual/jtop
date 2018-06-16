@@ -1,22 +1,16 @@
-jtop
-==============
+# Jtop
 
-> Jtop.js is a javascript library that uses SVG to let you build beautiful desktop-like user interfaces.
+Javascript library that uses SVG to let you build beautiful virtual desktop.
 
-![Demo](docs/demo.gif)
+![Demo](docs/hero.png)
 
-## Demo
+## Getting Started
 
-[Showcase](http://coderitual.github.io/jtop/ "jtop")
+[See live version](http://coderitual.github.io/jtop/ "jtop")
 
+### Examles
 
-## Usage
-
-Visit the example page from the test directory and check out main.js.
-
-### Basic
-
-```javascript
+```js
 const desktop = jtop.init("jtop", {
   scrollView: {
     initY: 25
@@ -41,94 +35,19 @@ const icon = desktop
   .icon({ title: "Icon", image: "test/images/db.png", gridX: 1, gridY: 1 })
   .menu(cMenuProject)
   .tooltip(iconTooltip);
-
 ```
 
-### Icon customization
-![Icon customization](docs/icon.gif)
-```javascript
-const icon = desktop.icon({
-  title: "Title",
-  image: "image.pong",
-  gridX: 4,
-  gridY: 5,
-  offsetTop: 10,
-  maxWidth: 100,
-  maxHeight: 100,
-  width: 32,
-  height: 32,
-  fontSize: 12,
-  textOffsetTop: 12
-});
-```
+For more, visit the example page inside `test` directory and look into `main.js`.
 
-### Panel customization
-![Panel customization](docs/panel.gif)
-```javascript
-const panel = desktop.panel({
-  title: "Panel title",
-  width: 100,
-  height: 100,
-  minWidh: 100,
-  minHeight: 100,
-  gridW: 100,
-  gridH: 100,
-  inlineEdit: true,
-  fontSize: 15,
-  topPanelHeight: 15,
-  bottomPanelHeight: 5,
-  textOffsetTop: 5,
-  textMargin: 5
-});
-```
+## Built With
 
-### Drag and drop tooltip and panel creation
-![Drag and drop tooltip and panel creation](docs/drop.gif)
-```javascript
-const desktop = jtop.init("jtop");
+* [SVG](https://developer.mozilla.org/pl/docs/Web/SVG) - Custom graphics and effects
+* [require.js](http://requirejs.org/) - Module Loader
 
-var panelTooltip = desktop.tooltip({
-  className: "jt-tooltip-info",
-  offsetLeft: 0,
-  offsetTop: 0,
-  toOpacity: 1
-}).addTemplate(`
-	<div class="image"></div>
-	<div class="title">
-		<span class="name"><%=name%></span> <%=title%>
-	</div>
-`);
+## Authors
 
-panelTooltip.on.show.add(function(sender, values) {
-  values.name = `<span class="name">+ Create panel</span>`;
-  values.title = sender.settings.title;
-});
-
-desktop.on.dragOverItem.add(function(item, itemBelow, x, y) {
-  panelTooltip.show(itemBelow, x, y);
-});
-
-desktop.on.dragOutItem.add(function(item) {
-  panelTooltip.hide();
-});
-
-desktop.on.dropInItem.add(function(item, itemBelow) {
-  panelTooltip.hide();
-  var newPanel = desktop
-    .panel({ title: itemBelow.settings.title, width: 200, height: 80 })
-    .pos(itemBelow.transform.x, itemBelow.transform.y + 25);
-  desktop.grid.removeValue(
-    itemBelow.settings.gridX,
-    itemBelow.settings.gridY,
-    itemBelow
-  );
-  desktop.grid.removeValue(item.settings.gridX, item.settings.gridY, item);
-  newPanel.addItem(item, 1, 0, true);
-  newPanel.addItem(itemBelow, 0, 0, true);
-  return true;
-});
-```
+* **Mike Skowronek** - *Initial work* - [coderitual](https://twitter.com/coderitual)
 
 ## License
 
-jtop is available under the MIT license. See the [LICENSE](LICENSE) file for more info.
+Jtop is available under the MIT license. See the [LICENSE](LICENSE) file for more info.

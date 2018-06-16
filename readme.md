@@ -1,6 +1,6 @@
 # Jtop
 
-Javascript library that uses SVG to let you build beautiful virtual desktop.
+Builld beautiful UI similar to real desktop.
 
 ![Demo](docs/hero.png)
 

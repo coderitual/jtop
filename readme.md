@@ -8,7 +8,14 @@ Javascript library that uses SVG to let you build beautiful virtual desktop.
 
 [See live version](http://coderitual.github.io/jtop/ "jtop")
 
-### Examles
+## Features
+- ✊ **Drag & drop** for desktop elements
+- 📦 **Basic elements**  included: `Icon`, `Panel`, `Tooltip`, `Menu`
+- 🔠 **SVG Text** with drop shadow and ellispis
+- ✏️ **Inline** text editing (Panels)
+- ↕️ **Resizable** elements
+
+### Example
 
 ```js
 const desktop = jtop.init("jtop", {

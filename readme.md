@@ -11,7 +11,7 @@ Javascript library that uses SVG to let you build beautiful virtual desktop.
 ## Features
 - ✊ **Drag & drop** for desktop elements
 - 📦 **Basic elements**  included: `Icon`, `Panel`, `Tooltip`, `Menu`
-- 🔠 **SVG Text** with drop shadow and ellispis
+- 📝 **SVG Text** with drop shadow and ellispis
 - ✏️ **Inline** text editing (Panels)
 - ↕️ **Resizable** elements
 

@@ -18,7 +18,7 @@ Javascript library that uses SVG to let you build beautiful virtual desktop.
 ### Example
 
 ```js
-const desktop = jtop.init("jtop", {
+const desktop = jtop.init('jtop', {
   scrollView: {
     initY: 25
   }
@@ -29,19 +29,20 @@ const tooltop = desktop.tooltip({
   offsetTop: -120
 });
 
-var menu = jtop.popupmenu().addMenuElement(
-  "open project",
+const menu = jtop.popupmenu().addMenuElement(
+  'open project',
   null,
-  function(sender) {
-    console.log("open project " + sender.title);
+  sender => {
+    console.log(`open project ${sender.title}`);
   },
-  "edit-item"
+  'edit-item'
 );
 
 const icon = desktop
-  .icon({ title: "Icon", image: "test/images/db.png", gridX: 1, gridY: 1 })
+  .icon({ title: 'Icon', image: 'test/images/db.png', gridX: 1, gridY: 1 })
   .menu(cMenuProject)
   .tooltip(iconTooltip);
+
 ```
 
 For more, visit the example page inside `test` directory and look into `main.js`.

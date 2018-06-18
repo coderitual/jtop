@@ -51,6 +51,8 @@ For more, visit the example page inside `test` directory and look into `main.js`
 
 * [SVG](https://developer.mozilla.org/pl/docs/Web/SVG) - Custom graphics and effects
 * [require.js](http://requirejs.org/) - Module Loader
+* [js-signals](http://millermedeiros.github.io/js-signals/) - Pub/Sub system
+* [underscore.js](https://underscorejs.org/) - Functional programming helpers
 
 ## Authors
 

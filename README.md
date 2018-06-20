@@ -6,7 +6,7 @@ Builld beautiful UI similar to real desktop.
 
 ## Getting Started
 
-[See live version](http://coderitual.github.io/jtop/ "jtop")
+See the **[live version](http://coderitual.github.io/jtop/ "jtop")**.
 
 ## Features
 - ✊ **Drag & drop** for desktop elements

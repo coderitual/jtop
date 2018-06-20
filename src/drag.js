@@ -8,20 +8,20 @@ define(function(require, exports, module) {
 	};
 
 	function hasClass(element, cls) {
-	    var r = new RegExp('\\b' + cls + '\\b');
-	    return element.getAttribute ? r.test(element.getAttribute('class')) : false;
+		var r = new RegExp('\\b' + cls + '\\b');
+		return element.getAttribute ? r.test(element.getAttribute('class')) : false;
 	}
 
 	function windowToElement(el, x, y) {
-    	var bbox = el.getBoundingClientRect();
-    	return { x: x - bbox.left, y: y - bbox.top};
+		var bbox = el.getBoundingClientRect();
+		return { x: x - bbox.left, y: y - bbox.top};
 	};
 
 	function getParentWithClass(el, name) {
-        while (el && (!hasClass(el, name) || !el.id))
-        	el = el.parentNode;
-        if (el) return el;
-    };
+		while (el && (!hasClass(el, name) || !el.id))
+			el = el.parentNode;
+		if (el) return el;
+	};
 
 	function itemAdded(item) {
 		if(_.isUndefined(item.drag)) return;
@@ -32,7 +32,7 @@ define(function(require, exports, module) {
 	function dragOverElement() {
 		var item = this._drag.item;
 		if(_.isNull(item)) return;
-		
+
 		item.node.style.display = 'none';
 		var below = document.elementFromPoint(this._drag.cx, this._drag.cy),
 			dropElement = getParentWithClass(below, 'droppable'),
@@ -76,8 +76,8 @@ define(function(require, exports, module) {
 		var loc = windowToElement(this.manager.parent, e.clientX, e.clientY);
 		
 		this.manager._drag.item = this.item;
-    	this.manager._drag.x = loc.x;
-    	this.manager._drag.y = loc.y;
+		this.manager._drag.x = loc.x;
+		this.manager._drag.y = loc.y;
 	};
 
 	function mousemove(e) {
@@ -86,61 +86,61 @@ define(function(require, exports, module) {
 
 		var item = this._drag.item,
 			loc = windowToElement(this.parent, e.clientX, e.clientY);
-        	cx = e.clientX,
-        	cy = e.clientY;
+		cx = e.clientX,
+		cy = e.clientY;
 
-        if(!this._drag.dragging && (Math.pow(this._drag.x - loc.x, 2) + Math.pow(this._drag.y - loc.y, 2) < Math.pow(item.drag.distance, 2))) return;
-    	if(!this._drag.dragging) {
-    		this._drag.dragging = true;
+		if(!this._drag.dragging && (Math.pow(this._drag.x - loc.x, 2) + Math.pow(this._drag.y - loc.y, 2) < Math.pow(item.drag.distance, 2))) return;
+		if(!this._drag.dragging) {
+			this._drag.dragging = true;
 
-    		// move item to top
+			// move item to top
 			item.parent.node.removeChild(item.node);
 			item.parent.node.appendChild(item.node);
 
-    		if(item.parent.drop) {
-    			this._drag.itemStartDrag.parent = item.parent;  // set start drag info: parent
-    			this._drag.itemStartDrag.x = loc.x,				// start x location
-    			this._drag.itemStartDrag.y = loc.y;				// start y location
+			if(item.parent.drop) {
+				this._drag.itemStartDrag.parent = item.parent;  // set start drag info: parent
+				this._drag.itemStartDrag.x = loc.x,		// start x location
+				this._drag.itemStartDrag.y = loc.y;		// start y location
 
-    			item.parent.dropOut(item, loc.x, loc.y);  // inform droppable parent about dragging action of its child
-    		}
+				item.parent.dropOut(item, loc.x, loc.y);  // inform droppable parent about dragging action of its child
+			}
 
-    		this._drag.cursor = this.node.style.cursor; 
-    		this.node.style.cursor = 'move';
-    		this.dragStart(item, loc.x, loc.y);
-    		item.dragStart(loc.x, loc.y);
-    		item.drag.dragging = true;
-    	};
+			this._drag.cursor = this.node.style.cursor; 
+			this.node.style.cursor = 'move';
+			this.dragStart(item, loc.x, loc.y);
+			item.dragStart(loc.x, loc.y);
+			item.drag.dragging = true;
+		};
 
-        var xd = loc.x - this._drag.x,
-        	yd = loc.y - this._drag.y,
-        	newposx = item.transform.x + xd,
-        	newposy = item.transform.y + yd;
+		var xd = loc.x - this._drag.x,
+		yd = loc.y - this._drag.y,
+		newposx = item.transform.x + xd,
+		newposy = item.transform.y + yd;
 
-        // drag boundaries
-        if(item.drag.boundingBox) {
-        	var crect = item.getBoundingBox();
+		// drag boundaries
+		if(item.drag.boundingBox) {
+			var crect = item.getBoundingBox();
 
-        	if (crect.x + xd < 0) newposx = 0; 
-        	else if (crect.x + xd + crect.w > this.parent.offsetWidth) newposx = this.parent.offsetWidth - crect.w;
+			if (crect.x + xd < 0) newposx = 0; 
+			else if (crect.x + xd + crect.w > this.parent.offsetWidth) newposx = this.parent.offsetWidth - crect.w;
 
 			if (crect.y + yd < 0) newposy -= (crect.y + yd); 
-        	else if (crect.y + yd + crect.h > this.parent.offsetHeight) newposy += this.parent.offsetHeight - (crect.y + yd + crect.h);
-        }
+			else if (crect.y + yd + crect.h > this.parent.offsetHeight) newposy += this.parent.offsetHeight - (crect.y + yd + crect.h);
+		}
 
-        item.pos(newposx, newposy);
+		item.pos(newposx, newposy);
 
-        this._drag.x = loc.x;
-        this._drag.y = loc.y;
-        this._drag.cx = cx;
-        this._drag.cy = cy;   
+		this._drag.x = loc.x;
+		this._drag.y = loc.y;
+		this._drag.cx = cx;
+		this._drag.cy = cy;   
 
-        if(item.drag.checkDragOver && _.isNull(this._drag.dragCheckTimer)) {
-        	this._drag.dragCheckTimer = setTimeout(_.bind(dragOverElement, this), settings.checkDragOverDelay);	
-        }
+		if(item.drag.checkDragOver && _.isNull(this._drag.dragCheckTimer)) {
+			this._drag.dragCheckTimer = setTimeout(_.bind(dragOverElement, this), settings.checkDragOverDelay);	
+		}
 
-        this.drag(item, loc.x, loc.y);
-        item.dragMove(loc.x, loc.y);
+		this.drag(item, loc.x, loc.y);
+		item.dragMove(loc.x, loc.y);
 	};
 
 	function mouseup(e) {
@@ -152,12 +152,12 @@ define(function(require, exports, module) {
 			var item = this._drag.item,
 				loc = windowToElement(this.parent, e.clientX, e.clientY);
 				xd = loc.x - this._drag.x,
-	        	yd = loc.y - this._drag.y,
-	        	newposx = item.transform.x + xd,
-        		newposy = item.transform.y + yd;
+			yd = loc.y - this._drag.y,
+			newposx = item.transform.x + xd,
+			newposy = item.transform.y + yd;
 
-	        item.pos(newposx, newposy);
-	        item.drag.dragging = false;
+			item.pos(newposx, newposy);
+			item.drag.dragging = false;
 			
 			// restore previous cursor
 			this.node.style.cursor = this._drag.cursor;
